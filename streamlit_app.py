@@ -91,6 +91,22 @@ def add_single_word_question(doc, question_number):
     run.bold = True
     p.add_run("\n\n")
 
+def delete_last_line(doc):
+    # Load the document
+    # doc = Document(docx_path)
+    
+    # Get the paragraphs
+    paragraphs = doc.paragraphs
+    
+    # Check if there are any paragraphs
+    if paragraphs:
+        # Remove the last paragraph
+        p = paragraphs[-1]._element
+        p.getparent().remove(p)
+        p._element = p._p = None
+
+
+
 def create_answer_sheet(csv_file):
     doc = Document()
     add_header(doc)
@@ -110,6 +126,9 @@ def create_answer_sheet(csv_file):
             add_single_word_question(doc, question_num)
         elif question_type == "table":
             add_question_section(doc, question_num, int(rows))
+    
+    delete_last_line(doc)
+    delete_last_line(doc)
 
     return doc
 
