@@ -129,7 +129,7 @@ with st.form("exam_form"):
     # Paper Name, Examiner Name, Class
     f1, f2, f3 = st.columns(3)
     with f1:
-        st.text_input("Paper Name", key="paper_name")
+        st.text_input("Paper Name", key="paper_name", placeholder="Class 12")
     with f2:
         st.text_input("Examiner's Name", key="examiner_name")
     with f3:
