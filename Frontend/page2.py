@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import json
 
 def display_next_page():
     st.title("Next Page")
@@ -10,6 +11,26 @@ def display_next_page():
     selected_option = st.selectbox("Choose an option", options)
 
     st.write(f"You selected: {selected_option}")
+
+    # Check if Option 2 is selected
+    if selected_option == "Option 2":
+        # Load and display JSON data
+        try:
+            with open("MOCK_DATA.json", "r") as json_file:
+                json_data = json.load(json_file)
+                
+                # Convert JSON data to DataFrame
+                df = pd.DataFrame(json_data)
+                
+                # Display the DataFrame as a grid
+                # print(df)
+                st.dataframe(df)  # Use st.dataframe for interactive grid
+        except FileNotFoundError:
+            st.error("MOCK_DATA.json file not found.")
+        except ValueError as e:
+            st.error(f"Error reading JSON: {e}")
+
+    st.divider()
 
     # File uploader for CSV files
     uploaded_file = st.file_uploader("Upload a CSV file", type="csv")
